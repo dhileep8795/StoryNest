@@ -505,7 +505,9 @@ export default function Home() {
                   ) : undefined
                 }
               >
-                StoryNest <small>Writing, shared.</small>
+                <span style={{ color: "#146eb4" }}>
+                StoryNest
+                </span>
               </Header>
             }
           >
