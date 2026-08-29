@@ -93,6 +93,8 @@ export default function Home() {
   const [showProfile, setShowProfile] = useState(false);
   const [myPosts, setMyPosts] = useState<Post[]>([]);
 
+  const [showDiscover, setShowDiscover] = useState(true);
+
   const authHeaders = (accessToken = token) => ({
     Authorization: `Bearer ${accessToken}`,
   });
@@ -435,8 +437,24 @@ export default function Home() {
         toolsHide={!token}
         navigationWidth={300}
         toolsWidth={320}
-        navigation={
-          <Container header={<Header variant="h2">Discover writers</Header>}>
+        navigation={ showDiscover &&
+          <Container
+            header={
+              <Header
+                variant="h2"
+                actions={
+                  <Button
+                    iconName="close"
+                    variant="icon"
+                    ariaLabel="Close Discover writers"
+                    onClick={() => setShowDiscover(false)}
+                  />
+                }
+              >
+                Discover writers
+              </Header>
+            }
+          >
             <Cards
               items={users}
               cardsPerRow={[{ cards: 1 }]}
@@ -522,7 +540,7 @@ export default function Home() {
                   ) : undefined
                 }
               >
-                InkNest <small>Writing, shared.</small>
+                StoryNest <small>Writing, shared.</small>
               </Header>
             }
           >
@@ -673,7 +691,7 @@ export default function Home() {
           setShowRegister(false);
           setRegisterError("");
         }}
-        header="Create your InkNest account"
+        header="Create your StoryNest account"
         footer={
           <SpaceBetween direction="horizontal" size="xs">
             <Button
