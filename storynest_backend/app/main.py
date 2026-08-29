@@ -19,7 +19,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-        "https://storynest.dmunige.workers.dev"
+        "https://storynest.community1.workers.dev/"
     ],
     allow_credentials=True,
     allow_methods=["*"],
