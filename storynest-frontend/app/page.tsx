@@ -431,23 +431,23 @@ export default function Home() {
 
   return (
     <>
-      <style>{`.inknest-mobile-actions{display:none}.inknest-post-actions{display:flex;flex-wrap:wrap;gap:8px}@media(max-width:768px){.inknest-desktop-actions{display:none}.inknest-mobile-actions{display:block}.inknest-post-actions>*{flex:1 1 auto}body{overflow-x:hidden}}`}</style>
+      <style>{`body{background:#fafafa;color:#262626}.inknest-mobile-actions{display:none}.inknest-post-actions{display:flex;flex-wrap:wrap;gap:8px}.inknest-composer,.inknest-feed{max-width:640px;margin:0 auto}.inknest-feed [class*="card"]{background:#fff;border:1px solid #dbdbdb;border-radius:12px;box-shadow:none}.inknest-feed [class*="card"]:hover{box-shadow:0 4px 18px rgba(0,0,0,.07)}.inknest-feed p{font-size:16px;line-height:1.65;white-space:pre-wrap}.inknest-brand{color:#262626;font-family:"Segoe Script",cursive;font-size:28px;font-weight:700}.inknest-discover,.inknest-notifications{color:#737373;font-size:13px}@media(max-width:768px){.inknest-desktop-actions{display:none}.inknest-mobile-actions{display:block}.inknest-post-actions>*{flex:1 1 auto}body{overflow-x:hidden}.inknest-feed [class*="card"]{border-left:0;border-right:0;border-radius:0}}`}</style>
       <AppLayout
         navigationHide={!token || !showDiscover}
         toolsHide={!token}
         navigationWidth={300}
         toolsWidth={320}
         navigation={showDiscover && (
-          <Container header={<Header variant="h2" counter={users.length ? `(${users.length})` : undefined} actions={<SpaceBetween direction="horizontal" size="xs"><Button onClick={() => loadUsers()}>Refresh</Button><Button iconName="close" variant="icon" ariaLabel="Close Discover writers" onClick={() => setShowDiscover(false)} /></SpaceBetween>}>Discover writers</Header>}>
+          <div className="inknest-discover"><Container header={<Header variant="h2" counter={users.length ? `(${users.length})` : undefined} actions={<SpaceBetween direction="horizontal" size="xs"><Button onClick={() => loadUsers()}>Refresh</Button><Button iconName="close" variant="icon" ariaLabel="Close Discover writers" onClick={() => setShowDiscover(false)} /></SpaceBetween>}>Discover writers</Header>}>
             <SpaceBetween size="s">
               {users.length === 0 ? <Box color="text-body-secondary">No other writers have registered yet.</Box> : users.map((user) => (
                 <Box key={user.id}><SpaceBetween direction="horizontal" size="xs"><Button variant="inline-link" onClick={() => openProfile(user.id)}>@{user.username}</Button><Button variant={user.is_following ? "normal" : "primary"} disabled={user.is_following} onClick={() => followUser(user.id)}>{user.is_following ? "Following" : "Follow"}</Button></SpaceBetween></Box>
               ))}
             </SpaceBetween>
-          </Container>
+          </Container></div>
         )}
         tools={
-          <Container
+          <div className="inknest-notifications"><Container
             header={
               <Header
                 variant="h2"
@@ -489,7 +489,7 @@ export default function Home() {
                 ))
               )}
             </SpaceBetween>
-          </Container>
+          </Container></div>
         }
         content={
           <ContentLayout
@@ -505,9 +505,7 @@ export default function Home() {
                   ) : undefined
                 }
               >
-                <span style={{ color: "#146eb4" }}>
-                StoryNest
-                </span>
+                <span className="inknest-brand">StoryNest</span>
               </Header>
             }
           >
@@ -560,7 +558,7 @@ export default function Home() {
                 </Container>
               ) : (
                 <>
-                  <Container
+                  <div className="inknest-composer"><Container
                     header={<Header variant="h2">Share a thought</Header>}
                   >
                     <SpaceBetween size="s">
@@ -578,9 +576,9 @@ export default function Home() {
                         Publish
                       </Button>
                     </SpaceBetween>
-                  </Container>
+                  </Container></div>
 
-                  <Cards
+                  <div className="inknest-feed"><Cards
                     header={
                       <Header
                         variant="h2"
@@ -644,7 +642,7 @@ export default function Home() {
                       ],
                     }}
                     empty="Follow writers from the left panel to see their posts here."
-                  />
+                  /></div>
                 </>
               )}
             </SpaceBetween>
