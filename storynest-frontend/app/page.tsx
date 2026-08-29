@@ -433,7 +433,7 @@ export default function Home() {
     <>
       <style>{`.inknest-mobile-actions{display:none}.inknest-post-actions{display:flex;flex-wrap:wrap;gap:8px}@media(max-width:768px){.inknest-desktop-actions{display:none}.inknest-mobile-actions{display:block}.inknest-post-actions>*{flex:1 1 auto}body{overflow-x:hidden}}`}</style>
       <AppLayout
-        navigationHide={!token}
+        navigationHide={!token || !showDiscover}
         toolsHide={!token}
         navigationWidth={300}
         toolsWidth={320}
@@ -499,8 +499,8 @@ export default function Home() {
                 actions={
                   token ? (
                     <div className="inknest-header-actions">
-                      <div className="inknest-desktop-actions"><SpaceBetween direction="horizontal" size="xs"><Button onClick={() => loadFeed()}>My Feed</Button><Button onClick={loadMyPosts}>Profile</Button><Button onClick={logout}>Logout</Button></SpaceBetween></div>
-                      <div className="inknest-mobile-actions"><ButtonDropdown items={[{ id: "feed", text: "My Feed" }, { id: "profile", text: "Profile" }, { id: "logout", text: "Logout" }]} onItemClick={({ detail }) => { if (detail.id === "feed") loadFeed(); if (detail.id === "profile") loadMyPosts(); if (detail.id === "logout") logout(); }}>Menu</ButtonDropdown></div>
+                      <div className="inknest-desktop-actions"><SpaceBetween direction="horizontal" size="xs">{!showDiscover && <Button onClick={() => setShowDiscover(true)}>Discover</Button>}<Button onClick={() => loadFeed()}>My Feed</Button><Button onClick={loadMyPosts}>Profile</Button><Button onClick={logout}>Logout</Button></SpaceBetween></div>
+                      <div className="inknest-mobile-actions"><ButtonDropdown items={[{ id: "discover", text: "Discover writers" }, { id: "feed", text: "My Feed" }, { id: "profile", text: "Profile" }, { id: "logout", text: "Logout" }]} onItemClick={({ detail }) => { if (detail.id === "discover") setShowDiscover(true); if (detail.id === "feed") loadFeed(); if (detail.id === "profile") loadMyPosts(); if (detail.id === "logout") logout(); }}>Menu</ButtonDropdown></div>
                     </div>
                   ) : undefined
                 }
