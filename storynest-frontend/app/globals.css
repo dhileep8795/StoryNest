@@ -153,4 +153,36 @@ body {
     border-left: 0;
     border-radius: 0;
   }
+
+  .discover-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+.discover-row {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid #efefef;
+  }
+
+.discover-row:last-child {
+  border-bottom: 0;
+  }
+
+.discover-row button:first-child {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  }
+
+.inknest-discover {
+  font-size: 13px;
+  }
+
 }

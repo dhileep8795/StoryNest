@@ -438,13 +438,57 @@ export default function Home() {
         navigationWidth={300}
         toolsWidth={320}
         navigation={showDiscover && (
-          <div className="inknest-discover"><Container header={<Header variant="h2" counter={users.length ? `(${users.length})` : undefined} actions={<SpaceBetween direction="horizontal" size="xs"><Button onClick={() => loadUsers()}>Refresh</Button><Button iconName="close" variant="icon" ariaLabel="Close Discover writers" onClick={() => setShowDiscover(false)} /></SpaceBetween>}>Discover writers</Header>}>
-            <SpaceBetween size="s">
-              {users.length === 0 ? <Box color="text-body-secondary">No other writers have registered yet.</Box> : users.map((user) => (
-                <Box key={user.id}><SpaceBetween direction="horizontal" size="xs"><Button variant="inline-link" onClick={() => openProfile(user.id)}>@{user.username}</Button><Button variant={user.is_following ? "normal" : "primary"} disabled={user.is_following} onClick={() => followUser(user.id)}>{user.is_following ? "Following" : "Follow"}</Button></SpaceBetween></Box>
-              ))}
-            </SpaceBetween>
-          </Container></div>
+          <div className="inknest-discover">
+            <Container
+              header={
+                <Header
+                  variant="h2"
+                  counter={users.length ? `(${users.length})` : undefined}
+                  actions={
+                    <SpaceBetween direction="horizontal" size="xs">
+                      <Button onClick={() => loadUsers()}>Refresh</Button>
+
+                      <Button
+                        iconName="close"
+                        variant="icon"
+                        ariaLabel="Close Discover writers"
+                        onClick={() => setShowDiscover(false)}
+                      />
+                    </SpaceBetween>
+                  }
+                >
+                  Discover writers
+                </Header>
+              }
+            >
+              {users.length === 0 ? (
+                <Box color="text-body-secondary">
+                  No other writers have registered yet.
+                </Box>
+              ) : (
+                <div className="discover-list">
+                  {users.map((user) => (
+                    <div className="discover-row" key={user.id}>
+                      <Button
+                        variant="inline-link"
+                        onClick={() => openProfile(user.id)}
+                      >
+                        @{user.username}
+                      </Button>
+
+                      <Button
+                        variant={user.is_following ? "normal" : "primary"}
+                        disabled={user.is_following}
+                        onClick={() => followUser(user.id)}
+                      >
+                        {user.is_following ? "Following" : "Follow"}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Container>
+          </div>
         )}
         tools={
           <div className="inknest-notifications"><Container
