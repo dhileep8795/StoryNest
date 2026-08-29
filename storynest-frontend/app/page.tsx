@@ -1,4 +1,4 @@
-"use client";
+
 
 import "@cloudscape-design/global-styles/index.css";
 
@@ -7,6 +7,7 @@ import {
   Badge,
   Box,
   Button,
+  ButtonDropdown,
   Cards,
   Container,
   ContentLayout,
@@ -428,6 +429,7 @@ export default function Home() {
 
   return (
     <>
+      <style>{`.inknest-mobile-actions{display:none}.inknest-post-actions{display:flex;flex-wrap:wrap;gap:8px}@media(max-width:768px){.inknest-desktop-actions{display:none}.inknest-mobile-actions{display:block}.inknest-post-actions>*{flex:1 1 auto}body{overflow-x:hidden}}`}</style>
       <AppLayout
         navigationHide={!token}
         toolsHide={!token}
@@ -513,17 +515,10 @@ export default function Home() {
                 variant="h1"
                 actions={
                   token ? (
-                    <SpaceBetween direction="horizontal" size="xs">
-                      <Button onClick={() => loadFeed()}>
-                        My Feed
-                      </Button>
-                      <Button onClick={loadMyPosts}>
-                        Profile
-                      </Button>
-                      <Button onClick={logout}>
-                        Logout
-                      </Button>
-                    </SpaceBetween>
+                    <div className="inknest-header-actions">
+                      <div className="inknest-desktop-actions"><SpaceBetween direction="horizontal" size="xs"><Button onClick={() => loadFeed()}>My Feed</Button><Button onClick={loadMyPosts}>Profile</Button><Button onClick={logout}>Logout</Button></SpaceBetween></div>
+                      <div className="inknest-mobile-actions"><ButtonDropdown items={[{ id: "feed", text: "My Feed" }, { id: "profile", text: "Profile" }, { id: "logout", text: "Logout" }]} onItemClick={({ detail }) => { if (detail.id === "feed") loadFeed(); if (detail.id === "profile") loadMyPosts(); if (detail.id === "logout") logout(); }}>Menu</ButtonDropdown></div>
+                    </div>
                   ) : undefined
                 }
               >
@@ -614,11 +609,7 @@ export default function Home() {
                       </Header>
                     }
                     items={posts}
-                    cardsPerRow={[
-                      { cards: 1 },
-                      { minWidth: 460, cards: 2 },
-                      { minWidth: 850, cards: 3 },
-                    ]}
+                    cardsPerRow={[{ cards: 1 }]}
                     cardDefinition={{
                       header: (post) => (
                         <Header variant="h3">
@@ -635,7 +626,7 @@ export default function Home() {
                         {
                           id: "actions",
                           content: (post) => (
-                            <SpaceBetween direction="horizontal" size="xs">
+                            <div className="inknest-post-actions">
                               <Popover
                                 dismissButton={false}
                                 position="top"
@@ -662,7 +653,7 @@ export default function Home() {
                               <Button onClick={() => openAddComment(post)}>
                                 Add comment
                               </Button>
-                            </SpaceBetween>
+                            </div>
                           ),
                         },
                       ],
